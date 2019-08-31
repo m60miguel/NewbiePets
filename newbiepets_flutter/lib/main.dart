@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/pages/settings.dart';
+import 'package:newbiepets_flutter/pages/pets.dart';
 
 
 void main() => runApp(MyApp());
@@ -38,6 +39,10 @@ class HomePage extends StatelessWidget {
             new ListTile(
               title: new Text("Mascotas"),
               trailing: new Icon(Icons.pets),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>PetsPage()),
+                );
+              }
             ),
             new ListTile(
               title: new Text("Mapa"),
@@ -54,7 +59,7 @@ class HomePage extends StatelessWidget {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage()),
                 );
-              },
+              }
             )
           ],
         ),
