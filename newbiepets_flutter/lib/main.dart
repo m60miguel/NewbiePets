@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:newbiepets_flutter/pages/settings.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -50,6 +51,10 @@ class HomePage extends StatelessWidget {
             new ListTile(
               title: new Text("Ajustes"),
               trailing: new Icon(Icons.settings_applications),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage()),
+                );
+              },
             )
           ],
         ),
