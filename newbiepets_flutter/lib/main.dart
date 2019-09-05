@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:newbiepets_flutter/pages/maps.dart';
 import 'package:newbiepets_flutter/pages/settings.dart';
 import 'package:newbiepets_flutter/pages/pets.dart';
 
@@ -47,6 +48,10 @@ class HomePage extends StatelessWidget {
             new ListTile(
               title: new Text("Mapa"),
               trailing: new Icon(Icons.map),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MapsPage()),
+                );
+              }
             ),
             new Divider(),
             new ListTile(
