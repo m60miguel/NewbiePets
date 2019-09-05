@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/pages/maps.dart';
 import 'package:newbiepets_flutter/pages/settings.dart';
 import 'package:newbiepets_flutter/pages/pets.dart';
+import 'package:newbiepets_flutter/pages/login.dart';
 
 
 void main() => runApp(MyApp());
@@ -35,7 +36,7 @@ class HomePage extends StatelessWidget {
               currentAccountPicture: new CircleAvatar(
                 backgroundColor: Colors.grey,
                 child: new Icon(Icons.account_circle),
-              ),
+              ), 
             ),
             new ListTile(
               title: new Text("Mascotas"),
@@ -57,6 +58,15 @@ class HomePage extends StatelessWidget {
             new ListTile(
               title: new Text("Acerca de"),
               trailing: new Icon(Icons.info),
+            ),
+            new Divider(),
+            new ListTile(
+              title: new Text("Iniciar Sesión"),
+              trailing: new Icon(Icons.verified_user),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()),
+                );
+              }
             ),
             new ListTile(
               title: new Text("Ajustes"),
