@@ -63,7 +63,7 @@ class LoginPageState extends State<LoginPage>
                       padding: const EdgeInsets.only(top: 25.0),
                     ),
                     new MaterialButton(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       textColor: Colors.white,
                       child: new Text("Registrarse"),
                       onPressed: () => {},

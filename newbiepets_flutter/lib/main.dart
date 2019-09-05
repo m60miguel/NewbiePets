@@ -4,6 +4,7 @@ import 'package:newbiepets_flutter/pages/maps.dart';
 import 'package:newbiepets_flutter/pages/settings.dart';
 import 'package:newbiepets_flutter/pages/pets.dart';
 import 'package:newbiepets_flutter/pages/login.dart';
+import 'package:newbiepets_flutter/pages/forum.dart';
 
 
 void main() => runApp(MyApp());
@@ -65,6 +66,14 @@ class HomePage extends StatelessWidget {
               trailing: new Icon(Icons.verified_user),
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()),
+                );
+              }
+            ),
+            new ListTile(
+              title: new Text("Foro"),
+              trailing: new Icon(Icons.view_list),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ForumPage()),
                 );
               }
             ),
