@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
       ),
       body: new Container(
         child: new Center(
-          child: new Text("Home Page"),
+          child: new PetsPage(),
         ),
       ),
     );
