@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/pages/login.dart';
@@ -17,6 +18,7 @@ class RegistroPetPageState extends State<RegistroPetPage> {
     'Serpiente',
     'Arañas'
   ];
+  DateTime selectedDate = DateTime.now();
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _mascotasActual;
@@ -74,6 +76,14 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                                 hintText: "Fecha de Nacimiento"),
                             keyboardType: TextInputType.datetime,
                           ),
+                          Text("${selectedDate.toLocal()}"),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          RaisedButton(
+                            onPressed: () => _selectDate(context),
+                            child: Text('Select date'),
+                          ),
                           new Padding(
                             padding: const EdgeInsets.only(top: 25.0),
                           ),
@@ -120,5 +130,17 @@ class RegistroPetPageState extends State<RegistroPetPage> {
     setState(() {
       _mascotasActual = mascotaSelec;
     });
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 }
