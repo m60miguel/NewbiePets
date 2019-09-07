@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newbiepets_flutter/pages/register.dart';
+import 'package:newbiepets_flutter/pages/registerpet.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -66,7 +68,26 @@ class LoginPageState extends State<LoginPage>
                       color: Colors.deepPurple,
                       textColor: Colors.white,
                       child: new Text("Registrarse"),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistroPage()))
+                      },
+                    ),
+                    new Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                    ),
+                    new MaterialButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      child: new Text("Registrar Mascota"),
+                      onPressed: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistroPetPage()))
+                      },
                     )
                   ],
                 ),
