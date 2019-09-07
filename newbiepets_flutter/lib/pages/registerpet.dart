@@ -9,7 +9,14 @@ class RegistroPetPage extends StatefulWidget {
 }
 
 class RegistroPetPageState extends State<RegistroPetPage> {
-  List _mascotas = ['Perro', 'Gato', 'Hamster', 'Minipig', 'Serpiente', 'Arañas'];
+  List _mascotas = [
+    'Perro',
+    'Gato',
+    'Hamster',
+    'Minipig',
+    'Serpiente',
+    'Arañas'
+  ];
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _mascotasActual;
@@ -36,69 +43,79 @@ class RegistroPetPageState extends State<RegistroPetPage> {
         title: Text("Registrar Mascota"),
         actions: <Widget>[],
       ),
-      body: new Stack(fit: StackFit.expand, children: <Widget>[
-        new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Form(
-              child: Container(
-                padding: const EdgeInsets.all(50.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new Text("Datos De Mascota",
-                        style: TextStyle(fontSize: 20.0)),
-                    new TextFormField(
-                      decoration: new InputDecoration(hintText: "Nombre"),
-                      keyboardType: TextInputType.text,
+      body: new Container(
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(children: <Widget>[
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Form(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(50.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new Text("Datos De Mascota",
+                              style: TextStyle(fontSize: 20.0)),
+                          new TextFormField(
+                            decoration: new InputDecoration(hintText: "Nombre"),
+                            keyboardType: TextInputType.text,
+                          ),
+                          new TextFormField(
+                            decoration: new InputDecoration(hintText: "Edad"),
+                            keyboardType: TextInputType.number,
+                          ),
+                          new TextFormField(
+                            decoration: new InputDecoration(
+                                hintText: "Fecha de Nacimiento"),
+                            keyboardType: TextInputType.datetime,
+                          ),
+                          new Padding(
+                            padding: const EdgeInsets.only(top: 25.0),
+                          ),
+                          new Text("Tipo", style: TextStyle(fontSize: 15.0)),
+                          new DropdownButton(
+                            value: _mascotasActual,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                          ),
+                          new Padding(
+                            padding: const EdgeInsets.only(top: 25.0),
+                          ),
+                          new MaterialButton(
+                            color: Colors.teal,
+                            textColor: Colors.white,
+                            child: new Text("Registrarte"),
+                            onPressed: () => {},
+                          ),
+                          new MaterialButton(
+                            color: Colors.red,
+                            textColor: Colors.white,
+                            child: new Text("Cancelar"),
+                            onPressed: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()))
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    new TextFormField(
-                      decoration: new InputDecoration(hintText: "Edad"),
-                      keyboardType: TextInputType.number,
-                    ),
-                    new TextFormField(
-                      decoration:
-                          new InputDecoration(hintText: "Fecha de Nacimiento"),
-                      keyboardType: TextInputType.datetime,
-                    ),
-                    new TextFormField(
-                      decoration: new InputDecoration(hintText: "Raza"),
-                      keyboardType: TextInputType.text,
-                    ),
-                    new DropdownButton(
-                      value: _mascotasActual,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                    ),
-                    new MaterialButton(
-                      color: Colors.teal,
-                      textColor: Colors.white,
-                      child: new Text("Registrarte"),
-                      onPressed: () => {},
-                    ),
-                    new MaterialButton(
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      child: new Text("Cancelar"),
-                      onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()))
-                      },
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                )
+              ],
             )
-          ],
-        )
-      ]),
+          ]),
+        ),
+      ),
     );
   }
+
   void changedDropDownItem(String mascotaSelec) {
     setState(() {
       _mascotasActual = mascotaSelec;
