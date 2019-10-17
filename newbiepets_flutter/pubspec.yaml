@@ -58,6 +58,9 @@ flutter:
     - images/dogs/akita.jpg
     - images/dogs/alaskan-malamute.jpg
     - images/dogs/beagle.jpg
+    - images/cats/american-shorthair.jpg
+    - images/cats/bombay.jpg
+    - images/cats/korat.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

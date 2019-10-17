@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/pages/dogs.dart';
+import 'package:newbiepets_flutter/pages/cats.dart';
 
 class PetsPage extends StatelessWidget {
   @override
@@ -30,8 +31,11 @@ class PetsPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text('Perros'),
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DogsPage()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DogsPage()));
                       },
                     )
                   ],
@@ -59,6 +63,12 @@ class PetsPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text('Gatos'),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CatsPage()));
+                      },
                     )
                   ],
                 ),
