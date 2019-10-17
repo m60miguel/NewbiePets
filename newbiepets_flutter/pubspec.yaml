@@ -55,6 +55,9 @@ flutter:
     - images/pet5.png
     - images/pet6.png
     - images/pet7.png
+    - images/dogs/akita.jpg
+    - images/dogs/alaskan-malamute.jpg
+    - images/dogs/beagle.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
