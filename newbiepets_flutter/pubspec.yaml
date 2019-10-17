@@ -61,6 +61,9 @@ flutter:
     - images/cats/american-shorthair.jpg
     - images/cats/bombay.jpg
     - images/cats/korat.jpg
+    - images/birds/adult-gouldian-finch.jpg
+    - images/birds/brotogeris-parrot.jpg
+    - images/birds/yellow-canary.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
