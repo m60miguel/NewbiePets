@@ -13,7 +13,7 @@ class RegistroPageState extends State<RegistroPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Registrate"),
+        title: Text("Registro usuario"),
         actions: <Widget>[],
       ),
       body: new Container(
@@ -30,15 +30,15 @@ class RegistroPageState extends State<RegistroPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        new Text("Datos De Inicio",
+                        new Text("Datos de Inicio",
                             style: TextStyle(fontSize: 20.0)),
                         new TextFormField(
-                          decoration: new InputDecoration(hintText: "E-mail"),
+                          decoration: new InputDecoration(hintText: "Correo electrónico"),
                           keyboardType: TextInputType.emailAddress,
                         ),
                         new TextFormField(
                           decoration:
-                              new InputDecoration(hintText: "Repetir E-mail"),
+                              new InputDecoration(hintText: "Repetir Correo electrónico"),
                           keyboardType: TextInputType.emailAddress,
                         ),
                         new TextFormField(
@@ -72,7 +72,7 @@ class RegistroPageState extends State<RegistroPage> {
                         ),
                         new TextFormField(
                           decoration:
-                              new InputDecoration(hintText: "Direccion"),
+                              new InputDecoration(hintText: "Dirección"),
                           keyboardType: TextInputType.text,
                         ),
                         new Padding(
@@ -81,7 +81,7 @@ class RegistroPageState extends State<RegistroPage> {
                         new MaterialButton(
                           color: Colors.teal,
                           textColor: Colors.white,
-                          child: new Text("Registrarte"),
+                          child: new Text("Registrarse"),
                           onPressed: () => {},
                         ),
                         new MaterialButton(

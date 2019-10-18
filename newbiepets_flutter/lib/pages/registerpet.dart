@@ -13,10 +13,9 @@ class RegistroPetPageState extends State<RegistroPetPage> {
   List _mascotas = [
     'Perro',
     'Gato',
-    'Hamster',
-    'Minipig',
-    'Serpiente',
-    'Arañas'
+    'Canario',
+    'Loro',
+    'Gorrión'
   ];
   DateTime selectedDate = DateTime.now();
 
@@ -42,7 +41,7 @@ class RegistroPetPageState extends State<RegistroPetPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Registrar Mascota"),
+        title: Text("Registro Mascota"),
         actions: <Widget>[],
       ),
       body: new Container(
@@ -82,7 +81,7 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                           ),
                           RaisedButton(
                             onPressed: () => _selectDate(context),
-                            child: Text('Select date'),
+                            child: Text('Seleccionar fecha'),
                           ),
                           new Padding(
                             padding: const EdgeInsets.only(top: 25.0),
@@ -99,7 +98,7 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                           new MaterialButton(
                             color: Colors.teal,
                             textColor: Colors.white,
-                            child: new Text("Registrarte"),
+                            child: new Text("Registrar"),
                             onPressed: () => {},
                           ),
                           new MaterialButton(

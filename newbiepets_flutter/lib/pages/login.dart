@@ -44,7 +44,7 @@ class LoginPageState extends State<LoginPage>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     new TextFormField(
-                      decoration: new InputDecoration(hintText: "E-mail"),
+                      decoration: new InputDecoration(hintText: "Correo electrónico"),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     new TextFormField(
@@ -58,7 +58,7 @@ class LoginPageState extends State<LoginPage>
                     new MaterialButton(
                       color: Colors.teal,
                       textColor: Colors.white,
-                      child: new Text("LogIn"),
+                      child: new Text("Iniciar Sesión"),
                       onPressed: () => {},
                     ),
                     new Padding(

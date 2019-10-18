@@ -23,15 +23,10 @@ class MapsPageState extends State<MapsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(FontAwesomeIcons.arrowLeft),
-          onPressed: () {
-            //
-          }),
           title: Text("Mapa"),
           actions: <Widget>[
             IconButton(
-              icon: Icon(FontAwesomeIcons.search),
+              icon: new Icon(Icons.search),
               onPressed: () {
                 //
               }),
