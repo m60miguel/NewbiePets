@@ -8,8 +8,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="newbiepets_flutter"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Newbie Pets app"
+        android:icon="@mipmap/icon_nbp">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyC9-sgdyL2l0HHjU-GbHPiDOoyTXNaTYtM"/>
         <activity
