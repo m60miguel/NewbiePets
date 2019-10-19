@@ -26,76 +26,78 @@ class LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title: Text("Iniciar Sesión"),
-        actions: <Widget>[],
-      ),
-      body: new Stack(fit: StackFit.expand, children: <Widget>[
-        new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new FlutterLogo(
-              size: _iconAnimation.value * 100,
-            ),
-            new Form(
-              child: Container(
-                padding: const EdgeInsets.all(50.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new TextFormField(
-                      decoration: new InputDecoration(hintText: "Correo electrónico"),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    new TextFormField(
-                      decoration: new InputDecoration(hintText: "Contraseña"),
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                    ),
-                    new MaterialButton(
-                      color: Colors.teal,
-                      textColor: Colors.white,
-                      child: new Text("Iniciar Sesión"),
-                      onPressed: () => {},
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                    ),
-                    new MaterialButton(
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                      child: new Text("Registrarse"),
-                      onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistroPage()))
-                      },
-                    ),
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                    ),
-                    new MaterialButton(
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      child: new Text("Registrar Mascota"),
-                      onPressed: () => {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistroPetPage()))
-                      },
-                    )
-                  ],
-                ),
+        appBar: AppBar(
+          title: Text("Iniciar Sesión"),
+          actions: <Widget>[],
+        ),
+        body: new Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new FlutterLogo(
+                size: _iconAnimation.value * 100,
               ),
-            )
-          ],
-        )
-      ]),
-    );
+              new Form(
+                child: Container(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new TextFormField(
+                        decoration:
+                            new InputDecoration(hintText: "Correo electrónico"),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      new TextFormField(
+                        decoration: new InputDecoration(hintText: "Contraseña"),
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                      ),
+                      new Padding(
+                        padding: const EdgeInsets.only(top: 25.0),
+                      ),
+                      new MaterialButton(
+                        color: Colors.teal,
+                        textColor: Colors.white,
+                        child: new Text("Iniciar Sesión"),
+                        onPressed: () => {},
+                      ),
+                      new Padding(
+                        padding: const EdgeInsets.only(top: 25.0),
+                      ),
+                      new MaterialButton(
+                        color: Colors.deepPurple,
+                        textColor: Colors.white,
+                        child: new Text("Registrarse"),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegistroPage()))
+                        },
+                      ),
+                      new Padding(
+                        padding: const EdgeInsets.only(top: 25.0),
+                      ),
+                      new MaterialButton(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        child: new Text("Registrar Mascota"),
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegistroPetPage()))
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          )),
+        ));
   }
 }
