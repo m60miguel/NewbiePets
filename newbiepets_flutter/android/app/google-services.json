@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "791287626688",
+    "firebase_url": "https://newbie-pets.firebaseio.com",
+    "project_id": "newbie-pets",
+    "storage_bucket": "newbie-pets.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791287626688:android:fd0f8d10b009cac5262625",
+        "android_client_info": {
+          "package_name": "com.example.newbiepets_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791287626688-ub7pghj2nalv8jdupm5acrrjh28u1u23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkdY-y0FDqdBSFGmDbIyo1hqVzqKodgd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791287626688-ub7pghj2nalv8jdupm5acrrjh28u1u23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
