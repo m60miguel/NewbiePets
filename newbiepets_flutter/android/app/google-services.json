@@ -8,45 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:710533838493:android:07b447b072719ea918c674",
+        "mobilesdk_app_id": "1:710533838493:android:741d94c16b2f1c3a18c674",
         "android_client_info": {
-          "package_name": "com.example.newbiepets_flutter"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "710533838493-mmh6vsfh9ogaqgg150dlvjs6eubm51kh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDwapR3u2uo2wx4Khgh6jQGG5M3EmJwHQU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "710533838493-mmh6vsfh9ogaqgg150dlvjs6eubm51kh.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "710533838493-ir9riej6jupvtar3ie34h7vlbjs9focs.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.konradmultiplataform.newbiepets"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:710533838493:android:8491a158df1989ef18c674",
-        "android_client_info": {
-          "package_name": "com.konradmultiplataform.newbiepets"
+          "package_name": "co.konradlorenz.edu.newbiepets_flutter"
         }
       },
       "oauth_client": [
