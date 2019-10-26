@@ -10,13 +10,7 @@ class RegistroPetPage extends StatefulWidget {
 }
 
 class RegistroPetPageState extends State<RegistroPetPage> {
-  List _mascotas = [
-    'Perro',
-    'Gato',
-    'Canario',
-    'Loro',
-    'Gorrión'
-  ];
+  List _mascotas = ['Perro', 'Gato', 'Canario', 'Loro', 'Gorrión'];
   DateTime selectedDate = DateTime.now();
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
@@ -98,7 +92,15 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                           new MaterialButton(
                             color: Colors.teal,
                             textColor: Colors.white,
-                            child: new Text("Registrar"),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.add,
+                                ),
+                                Text('Registrar'),
+                              ],
+                            ),
                             onPressed: () => {},
                           ),
                           new MaterialButton(
