@@ -41,6 +41,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.710533838493-nsdk8jv3h7su8lal5p7q73v4518aoo8l</string>
+			</array>
+		</dict>
+	</array>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>

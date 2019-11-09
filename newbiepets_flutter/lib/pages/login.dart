@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/pages/register.dart';
 import 'package:newbiepets_flutter/pages/registerpet.dart';
@@ -157,7 +158,7 @@ void _signInAnonymously() async {
     FirebaseUser user = (await FirebaseAuth.instance.signInAnonymously()).user;
     print('${user.uid}');
   } catch (e) {
-    print(e); // TODO: show dialog with error
+    print(e.toString()); // TODO: show dialog with error
   }
 }
 
@@ -165,6 +166,10 @@ void _signInWithGoogle() async {
   try {
     GoogleSignIn googleSignIn = GoogleSignIn();
     GoogleSignInAccount googleUser = await googleSignIn.signIn();
+    Firestore.instance.collection("Users").document(googleUser.id).setData({
+      "email": '${googleUser.email}',
+      "username": '${googleUser.displayName}',
+    });
     print('${googleUser.displayName}');
   } catch (e) {
     print(e); // TODO: show dialog with error
