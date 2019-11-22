@@ -14,6 +14,8 @@ abstract class AuthBase {
   Future<User> currentUser();
   Future<User> signInAnonimously();
   Future<User> signInWithGoogle();
+  Future<User> signInWithEmailAndPassword(String email, String password);
+  Future<User> createUserWithEmailAndPassword(String email, String password);
   Future<void> signOut();
 }
 
@@ -44,8 +46,7 @@ class Auth implements AuthBase {
     final googleSignIn = GoogleSignIn();
     final googleAccount = await googleSignIn.signIn();
     if (googleAccount != null) {
-      final googleAuth =
-          await googleAccount.authentication;
+      final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         log("*************");
         final authResult = await _firebaseAuth.signInWithCredential(
@@ -55,12 +56,28 @@ class Auth implements AuthBase {
         return _userFromFirebase(authResult.user);
       } else {
         throw PlatformException(
-          code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN', message: 'Missing Google Auth Token');
+            code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
+            message: 'Missing Google Auth Token');
       }
     } else {
       throw PlatformException(
           code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
     }
+  }
+
+  @override
+  Future<User> signInWithEmailAndPassword(String email, String password) async {
+    final authResult = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    return _userFromFirebase(authResult.user);
+  }
+
+  @override
+  Future<User> createUserWithEmailAndPassword(
+      String email, String password) async {
+    final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    return _userFromFirebase(authResult.user);
   }
 
   @override

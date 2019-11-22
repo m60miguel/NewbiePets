@@ -131,12 +131,8 @@ class LoginPageState extends State<LoginPage>
                         color: Colors.blue,
                         textColor: Colors.white,
                         child: new Text("Registrar Mascota"),
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegistroPetPage()))
-                        },
+                        onPressed: () => RegistroPetPage.show(context),
+                        
                       )
                     ],
                   ),

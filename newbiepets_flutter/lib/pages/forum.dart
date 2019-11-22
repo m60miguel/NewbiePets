@@ -22,16 +22,13 @@ class ForumPageState extends State<ForumPage> {
                     children: <Widget>[
                   Card(
                       child: ListTile(
-                    /*ListTile(
-               leading: CircleAvatar(
-               backgroundImage: NetworkImage(imageUrl),
-                    ),
-                    title: Text('Horse'),
-                  ) 
-                    leading: Icon(Icons.pets),*/
-                    leading: CircleAvatar(backgroundImage: NetworkImage('http://pngimg.com/uploads/cat/cat_PNG50485.png'),backgroundColor: Colors.transparent),
+                    leading: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'http://pngimg.com/uploads/cat/cat_PNG50485.png'),
+                        backgroundColor: Colors.transparent),
                     title: new Text("Foro 1"),
-                    subtitle: new Text("#53 ... Si el texto es bastante extenso hará las tres lineas"),
+                    subtitle: new Text(
+                        "#53 ... Si el texto es bastante extenso hará las tres lineas"),
                     dense: true,
                     trailing: Icon(Icons.more_vert),
                     onTap: () => {},

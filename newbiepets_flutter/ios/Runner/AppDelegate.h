@@ -1,10 +1,8 @@
 #import <Flutter/Flutter.h>
 #import <UIKit/UIKit.h>
-#import GoogleSignIn;
-#import Firebase;
+#import <GoogleSignIn/GoogleSignIn.h>
+#import <Firebase/Firebase.h>
 
 @interface AppDelegate : FlutterAppDelegate
-
-@interface AppDelegate : UIResponder<UIApplicationDelegate, GIDSignInDelegate>
 
 @end
