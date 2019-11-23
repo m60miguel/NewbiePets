@@ -6,7 +6,7 @@ import 'package:newbiepets_flutter/models/pet.dart';
 import 'package:newbiepets_flutter/services/api_path.dart';
 
 abstract class Database {
-  Future<void> createPet(Pet pet);
+  Future<void> setPet(Pet pet);
   Stream<List<Pet>> readPets();
 }
 
@@ -18,10 +18,11 @@ class FirestoreDatabase implements Database {
   final String uid;
 
   Stream<List<Pet>> readPets() => _collectionsStream(
-      path: APIPath.pets('104559956797533984738'), builder: (data) => Pet.fromMap(data));
+      path: APIPath.pets('104559956797533984738'),
+      builder: (data, documentId) => Pet.fromMap(data, documentId));
 
-  Future<void> createPet(Pet pet) async => _setData(
-        path: APIPath.pet('104559956797533984738', documentIdByDate()),
+  Future<void> setPet(Pet pet) async => _setData(
+        path: APIPath.pet('104559956797533984738', pet.did),
         data: pet.toMap(),
       );
 
@@ -33,14 +34,15 @@ class FirestoreDatabase implements Database {
 
   Stream<List<T>> _collectionsStream<T>({
     @required String path,
-    @required T builder(Map<String, dynamic> data),
+    @required T builder(Map<String, dynamic> data, String documentId),
   }) {
     final reference = Firestore.instance.collection(path);
     final snapshots = reference.snapshots();
     snapshots.listen((snapshot) {
       snapshot.documents.forEach((snapshot) => print(snapshot.data));
     });
-    return snapshots.map((snapshot) =>
-        snapshot.documents.map((snapshot) => builder(snapshot.data)).toList());
+    return snapshots.map((snapshot) => snapshot.documents
+        .map((snapshot) => builder(snapshot.data, snapshot.documentID))
+        .toList());
   }
 }

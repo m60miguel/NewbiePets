@@ -65,7 +65,16 @@ class LoginPageState extends State<LoginPage>
                       new MaterialButton(
                         color: Colors.teal,
                         textColor: Colors.white,
-                        child: new Text("Iniciar Sesión"),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.check),
+                            Text(
+                              ' Ingresar',
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                         onPressed: _signInAnonymously,
                       ),
                       new Padding(
@@ -93,27 +102,6 @@ class LoginPageState extends State<LoginPage>
                         padding: const EdgeInsets.only(top: 25.0),
                       ),
                       new MaterialButton(
-                        textColor: Colors.white,
-                        color: Color(0xFF334092),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Image.asset('images/facebook-logo.png'),
-                              Text("Iniciar con Facebook"),
-                              Opacity(
-                                opacity: 0.0,
-                                child: Image.asset('images/facebook-logo.png'),
-                              )
-                            ]),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
-                        onPressed: () => {},
-                      ),
-                      new Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
-                      ),
-                      new MaterialButton(
                         color: Colors.deepPurple,
                         textColor: Colors.white,
                         child: new Text("Registrarse"),
@@ -132,7 +120,6 @@ class LoginPageState extends State<LoginPage>
                         textColor: Colors.white,
                         child: new Text("Registrar Mascota"),
                         onPressed: () => RegistroPetPage.show(context),
-                        
                       )
                     ],
                   ),

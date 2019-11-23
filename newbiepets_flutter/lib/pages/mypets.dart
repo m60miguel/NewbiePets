@@ -4,6 +4,9 @@ import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:newbiepets_flutter/commonwidgets/alert_dialog.dart';
 import 'package:newbiepets_flutter/models/pet.dart';
+import 'package:newbiepets_flutter/pages/mypets_list.dart';
+import 'package:newbiepets_flutter/pages/register.dart';
+import 'package:newbiepets_flutter/pages/registerpet.dart';
 import 'package:newbiepets_flutter/services/petdb.dart';
 
 class MyPetPage extends StatefulWidget {
@@ -32,19 +35,13 @@ class MyPetPageState extends State<MyPetPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final pets = snapshot.data;
-            final nombre1 = pets.map((pet) => Text(pet.nombre)).toList();
-            final edad1 = pets.map((pet) => (pet.edad)).toList();
-            final fechaNacimiento1 = pets.map((pet) => (pet.fechaNacimiento)).toList();
-            final tipo1 = pets.map((pet) => Text(pet.tipo)).toList();
-            return ListView(children:  <Widget>[
-                  Card(
-                      child: ListTile(
-                          title: new Text(nombre1.toString()),
-                          subtitle: new Text(edad1.toString()),
-                          isThreeLine: true,
-                      ),
-                  )
-            ]);
+            final children = pets
+                .map((pet) => MyPetsList(
+                      pet: pet,
+                      onTap: () => RegistroPetPage.show(context, pet: pet),
+                    ))
+                .toList();
+            return ListView(children: children);
           }
           if (snapshot.hasError) {
             PlatformAlertDialog(

@@ -10,10 +10,13 @@ import 'package:flutter/services.dart';
 import 'package:newbiepets_flutter/services/petdb.dart';
 
 class RegistroPetPage extends StatefulWidget {
-  static Future<void> show(BuildContext context) async {
+  const RegistroPetPage({Key key, this.pet}) : super(key: key);
+  final Pet pet;
+
+  static Future<void> show(BuildContext context, {Pet pet}) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => RegistroPetPage(),
+        builder: (context) => RegistroPetPage(pet: pet),
         fullscreenDialog: true,
       ),
     );
@@ -41,17 +44,30 @@ class RegistroPetPageState extends State<RegistroPetPage> {
     return false;
   }
 
-  Future<void> _submit() async{
-    if (_validateForm()) {
-      final database = FirestoreDatabase(uid: 'null');
-      final pet = Pet(nombre: _nombre, edad: _edad, fechaNacimiento: Timestamp.fromDate(_fechaNacimiento), tipo: _tipo);
-      await database.createPet(pet);
-      PlatformAlertDialog(
-        title: 'Exito!',
-        content: 'Se ha guardado correctamente. \n nombre: $_nombre - $_edad  años \n $_fechaNacimiento, y $_tipo',
-        defaultActionText: 'Ok',
+  Future<void> _submit() async {
+    try {
+      if (_validateForm()) {
+        final database = FirestoreDatabase(uid: 'null');
+        final did = widget.pet?.did ?? documentIdByDate();
+        final pet = Pet(
+            did: did,
+            nombre: _nombre,
+            edad: _edad,
+            fechaNacimiento: Timestamp.fromDate(_fechaNacimiento),
+            tipo: _tipo);
+        await database.setPet(pet);
+        PlatformAlertDialog(
+          title: 'Exito!',
+          content:
+              'Se ha guardado correctamente. \n nombre: $_nombre - $_edad  años \n $_fechaNacimiento, y $_tipo',
+          defaultActionText: 'Ok',
+        ).show(context);
+      }
+    } on PlatformException catch (e) {
+      PlatformExceptionAlertDialog(
+        title: 'Operacion Fallida',
+        exception: e,
       ).show(context);
-      
     }
   }
 
@@ -67,6 +83,13 @@ class RegistroPetPageState extends State<RegistroPetPage> {
     _dropDownMenuItems = getDropDownMenuItems();
     _mascotasActual = _dropDownMenuItems[0].value;
     super.initState();
+    if (widget.pet != null) {
+      _nombre = widget.pet.nombre;
+      _edad = widget.pet.edad;
+      _fechaNacimiento = widget.pet.fechaNacimiento.toDate();
+      dateTXT.text = _fechaNacimiento.toString();
+      _tipo = widget.pet.tipo;
+    }
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -81,7 +104,7 @@ class RegistroPetPageState extends State<RegistroPetPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Registro Mascota"),
+        title: Text(widget.pet == null ? "Registro Mascota" : "Editar Mascota"),
         actions: <Widget>[],
       ),
       body: new Container(
@@ -105,15 +128,21 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                               style: TextStyle(fontSize: 20.0)),
                           new TextFormField(
                             decoration: new InputDecoration(hintText: "Nombre"),
+                            initialValue: _nombre != null ? _nombre : null,
                             keyboardType: TextInputType.text,
-                            validator: (value) => value.isNotEmpty ? null: 'Nombre no debe estar Vacio',
+                            validator: (value) => value.isNotEmpty
+                                ? null
+                                : 'Nombre no debe estar Vacio',
                             onSaved: (value) => _nombre = value,
                           ),
                           new TextFormField(
                             decoration: new InputDecoration(hintText: "Edad"),
+                            initialValue: _edad != null ? '$_edad' : null,
                             keyboardType: TextInputType.numberWithOptions(
                                 signed: false, decimal: false),
-                             validator: (value) => value.isNotEmpty ? null: 'Edad no debe estar Vacio',
+                            validator: (value) => value.isNotEmpty
+                                ? null
+                                : 'Edad no debe estar Vacio',
                             onSaved: (value) =>
                                 _edad = int.tryParse(value) ?? 0,
                           ),
@@ -123,11 +152,19 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                             keyboardType: TextInputType.datetime,
                             readOnly: true,
                             controller: dateTXT,
-                             validator: (value) => value.isNotEmpty ? null: 'Fecha Nacimiento no debe estar Vacio',
+                            validator: (value) => value.isNotEmpty
+                                ? null
+                                : 'Fecha Nacimiento no debe estar Vacio',
                             onSaved: (value) =>
                                 _fechaNacimiento = DateTime.parse(value),
                           ),
-                          Text("${selectedDate.toLocal()}"),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            "${selectedDate.toLocal()}",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           SizedBox(
                             height: 20.0,
                           ),
@@ -146,7 +183,9 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                           new Text("Tipo", style: TextStyle(fontSize: 15.0)),
                           new DropdownButton(
                               hint: new Text('Seleccione Animal'),
-                              value: _mascotasActual,
+                              value: (widget.pet == null
+                                  ? _mascotasActual
+                                  : _tipo),
                               items: _dropDownMenuItems,
                               onChanged: (String mascotaSelec) {
                                 setState(() {
@@ -163,10 +202,12 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Icon(
-                                  Icons.add,
-                                ),
-                                Text('Registrar'),
+                                Icon(widget.pet == null
+                                    ? Icons.add
+                                    : Icons.edit),
+                                Text(widget.pet == null
+                                    ? '  Registrar'
+                                    : '  Editar'),
                               ],
                             ),
                             onPressed: _submit,
@@ -212,29 +253,11 @@ class RegistroPetPageState extends State<RegistroPetPage> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015),
+        firstDate: DateTime(2000),
         lastDate: DateTime(2025));
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
       });
-  }
-
-  Future<void> _createPet(BuildContext context) async {
-    try {
-      var tiempo = DateTime.parse("1969-07-20 20:18:04Z");
-      final database = FirestoreDatabase(uid: 'null');
-      await database.createPet(Pet(
-        nombre: 'Noche1',
-        edad: 1,
-        fechaNacimiento: Timestamp.fromDate(tiempo),
-        tipo: 'Gato',
-      ));
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
-        title: 'Error en la Operación',
-        exception: e,
-      ).show(context);
-    }
   }
 }

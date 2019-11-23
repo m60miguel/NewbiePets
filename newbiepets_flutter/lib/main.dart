@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:newbiepets_flutter/pages/registerpet.dart';
 import 'package:newbiepets_flutter/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:newbiepets_flutter/pages/maps.dart';
@@ -42,6 +43,7 @@ class HomePage extends StatelessWidget {
                 backgroundColor: Colors.grey,
                 child: new Icon(Icons.account_circle),
               ),
+              onDetailsPressed: () => RegistroPetPage.show(context),
             ),
             new ListTile(
                 title: new Text("Mascotas"),
