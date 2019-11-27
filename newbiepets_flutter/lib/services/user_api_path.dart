@@ -1,3 +1,3 @@
-class APIPath {
-  static String pet(String uid) => 'Users/$uid';
+class APIPathUser {
+  static String user(String uid) => 'Users/$uid';
 }

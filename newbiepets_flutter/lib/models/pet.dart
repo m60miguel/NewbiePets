@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
 
 class Pet {
   Pet({this.did, this.nombre, this.edad, this.fechaNacimiento, this.tipo});

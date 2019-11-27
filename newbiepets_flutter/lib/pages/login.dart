@@ -1,34 +1,57 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newbiepets_flutter/pages/register.dart';
-import 'package:newbiepets_flutter/pages/registerpet.dart';
-import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:newbiepets_flutter/services/auth.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({this.auth, this.onSignedIn});
+  final Auth auth;
+  final VoidCallback onSignedIn;
+
   @override
   LoginPageState createState() => LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
-  AnimationController _iconAnimationController;
-  Animation<double> _iconAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _iconAnimationController = new AnimationController(
-        vsync: this, duration: new Duration(milliseconds: 400));
-    _iconAnimation = new CurvedAnimation(
-        parent: _iconAnimationController, curve: Curves.bounceIn);
-    _iconAnimation.addListener(() => this.setState(() {}));
-    _iconAnimationController.forward();
-  }
-
+class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final formKey = new GlobalKey<FormState>();
+    String _email;
+    String _password;
+
+    bool validateForm() {
+      final form = formKey.currentState;
+      if (form.validate()) {
+        form.save();
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    void _submit() async {
+      if (validateForm()) {
+        try {
+          String userId =
+              await widget.auth.signInWithEmailAndPassword(_email, _password);
+          print('Login by $userId');
+          widget.onSignedIn();
+        } catch (e) {
+          print('Error: $e');
+        }
+      }
+    }
+
+    void _signInWithGoogle() async {
+      try {
+        await widget.auth.signInWithGoogle();
+        widget.onSignedIn();
+      } on PlatformException catch (e) {
+        print(e);
+      }
+    }
+
     return new Scaffold(
         appBar: AppBar(
           title: Text("Iniciar Sesión"),
@@ -41,9 +64,10 @@ class LoginPageState extends State<LoginPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new FlutterLogo(
-                size: _iconAnimation.value * 100,
+                size: 100,
               ),
               new Form(
+                key: formKey,
                 child: Container(
                   padding: const EdgeInsets.all(50.0),
                   child: Column(
@@ -53,11 +77,19 @@ class LoginPageState extends State<LoginPage>
                         decoration:
                             new InputDecoration(hintText: "Correo electrónico"),
                         keyboardType: TextInputType.emailAddress,
+                        validator: (value) => value.isNotEmpty
+                            ? null
+                            : 'Email no debe estar Vacio',
+                        onSaved: (value) => _email = value,
                       ),
                       new TextFormField(
                         decoration: new InputDecoration(hintText: "Contraseña"),
                         keyboardType: TextInputType.text,
                         obscureText: true,
+                        validator: (value) => value.isNotEmpty
+                            ? null
+                            : 'Password no debe estar Vacio',
+                        onSaved: (value) => _password = value,
                       ),
                       new Padding(
                         padding: const EdgeInsets.only(top: 25.0),
@@ -71,11 +103,12 @@ class LoginPageState extends State<LoginPage>
                             Icon(Icons.check),
                             Text(
                               ' Ingresar',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
-                        onPressed: _signInAnonymously,
+                        onPressed: _submit,
                       ),
                       new Padding(
                         padding: const EdgeInsets.only(top: 25.0),
@@ -102,25 +135,14 @@ class LoginPageState extends State<LoginPage>
                         padding: const EdgeInsets.only(top: 25.0),
                       ),
                       new MaterialButton(
-                        color: Colors.deepPurple,
-                        textColor: Colors.white,
-                        child: new Text("Registrarse"),
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegistroPage()))
-                        },
-                      ),
+                          color: Colors.deepPurple,
+                          textColor: Colors.white,
+                          child: new Text("Registrarse"),
+                          onPressed: () =>
+                              RegistroPage.show(context, auth: new Auth())),
                       new Padding(
                         padding: const EdgeInsets.only(top: 25.0),
                       ),
-                      new MaterialButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        child: new Text("Registrar Mascota"),
-                        onPressed: () => RegistroPetPage.show(context),
-                      )
                     ],
                   ),
                 ),
@@ -128,33 +150,5 @@ class LoginPageState extends State<LoginPage>
             ],
           )),
         ));
-  }
-}
-
-class User {
-  User({@required this.uid});
-  final String uid;
-}
-
-void _signInAnonymously() async {
-  try {
-    FirebaseUser user = (await FirebaseAuth.instance.signInAnonymously()).user;
-    print('${user.uid}');
-  } catch (e) {
-    print(e.toString()); // TODO: show dialog with error
-  }
-}
-
-void _signInWithGoogle() async {
-  try {
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    Firestore.instance.collection("Users").document(googleUser.id).setData({
-      "email": '${googleUser.email}',
-      "username": '${googleUser.displayName}',
-    });
-    print('${googleUser.displayName}');
-  } catch (e) {
-    print(e); // TODO: show dialog with error
   }
 }

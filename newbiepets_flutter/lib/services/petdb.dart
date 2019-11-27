@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:newbiepets_flutter/models/pet.dart';
-import 'package:newbiepets_flutter/services/api_path.dart';
+import 'package:newbiepets_flutter/services/pet_api_path.dart';
 
 abstract class Database {
   Future<void> setPet(Pet pet);
@@ -14,15 +14,14 @@ String documentIdByDate() => DateTime.now().toIso8601String();
 
 class FirestoreDatabase implements Database {
   FirestoreDatabase({@required this.uid}) : assert(uid != null);
-
   final String uid;
 
   Stream<List<Pet>> readPets() => _collectionsStream(
-      path: APIPath.pets('104559956797533984738'),
+      path: APIPath.pets(uid),
       builder: (data, documentId) => Pet.fromMap(data, documentId));
 
   Future<void> setPet(Pet pet) async => _setData(
-        path: APIPath.pet('104559956797533984738', pet.did),
+        path: APIPath.pet(uid, pet.did),
         data: pet.toMap(),
       );
 

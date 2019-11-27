@@ -4,19 +4,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:newbiepets_flutter/commonwidgets/alert_dialog.dart';
 import 'package:newbiepets_flutter/commonwidgets/platform_exception.dart';
 import 'package:newbiepets_flutter/models/pet.dart';
-import 'package:newbiepets_flutter/pages/mypets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newbiepets_flutter/services/auth.dart';
 import 'package:newbiepets_flutter/services/petdb.dart';
 
 class RegistroPetPage extends StatefulWidget {
-  const RegistroPetPage({Key key, this.pet}) : super(key: key);
+  const RegistroPetPage({this.auth, this.pet});
+  final Auth auth;
   final Pet pet;
 
-  static Future<void> show(BuildContext context, {Pet pet}) async {
+  static Future<void> show(BuildContext context, {Auth auth, Pet pet}) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => RegistroPetPage(pet: pet),
+        builder: (context) => RegistroPetPage(auth: auth, pet: pet),
         fullscreenDialog: true,
       ),
     );
@@ -47,7 +48,8 @@ class RegistroPetPageState extends State<RegistroPetPage> {
   Future<void> _submit() async {
     try {
       if (_validateForm()) {
-        final database = FirestoreDatabase(uid: 'null');
+        String uid = await widget.auth.currentUser();
+        final database = FirestoreDatabase(uid: uid);
         final did = widget.pet?.did ?? documentIdByDate();
         final pet = Pet(
             did: did,
@@ -218,17 +220,6 @@ class RegistroPetPageState extends State<RegistroPetPage> {
                             textColor: Colors.white,
                             child: new Text("Cancelar"),
                             onPressed: () => {Navigator.pop(context)},
-                          ),
-                          new MaterialButton(
-                            color: Colors.blueAccent,
-                            textColor: Colors.white,
-                            child: new Text("Database"),
-                            onPressed: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyPetPage()))
-                            },
                           ),
                         ],
                       ),
