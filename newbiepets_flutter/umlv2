@@ -1,0 +1,405 @@
+@startuml
+set namespaceSeparator ::
+
+class "newbiepets_flutter::commonwidgets::alert_dialog.dart::PlatformAlertDialog" {
+  +String title
+  +String content
+  +String cancelActionText
+  +String defaultActionText
+  +Future show()
+}
+
+"newbiepets_flutter::commonwidgets::platform_widget.dart::PlatformWidget" <|-- "newbiepets_flutter::commonwidgets::alert_dialog.dart::PlatformAlertDialog"
+
+class "newbiepets_flutter::commonwidgets::android_alert_dialog.dart::AndroidAlertDialog" {
+  +Widget buildMaterialWidget()
+}
+
+"newbiepets_flutter::commonwidgets::alert_dialog.dart::PlatformAlertDialog" <|-- "newbiepets_flutter::commonwidgets::android_alert_dialog.dart::AndroidAlertDialog"
+
+abstract class "newbiepets_flutter::commonwidgets::custom_dialog.dart::CustomDialog" {
+  +String getTitle()
+  +Widget create()
+  +Future show()
+}
+
+class "newbiepets_flutter::commonwidgets::ios_alert_dialog.dart::IosAlertDialog" {
+  +Widget buildCupertinoWidget()
+}
+
+"newbiepets_flutter::commonwidgets::alert_dialog.dart::PlatformAlertDialog" <|-- "newbiepets_flutter::commonwidgets::ios_alert_dialog.dart::IosAlertDialog"
+
+class "newbiepets_flutter::commonwidgets::platform_exception.dart::PlatformExceptionAlertDialog" {
+  {static} -Map<String, String> _errors
+  {static} -String _message()
+}
+
+"newbiepets_flutter::commonwidgets::alert_dialog.dart::PlatformAlertDialog" <|-- "newbiepets_flutter::commonwidgets::platform_exception.dart::PlatformExceptionAlertDialog"
+
+abstract class "newbiepets_flutter::commonwidgets::platform_widget.dart::PlatformWidget" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::commonwidgets::platform_widget.dart::PlatformWidget"
+
+class "newbiepets_flutter::home.dart::HomePage" {
+  +String uid1
+  +Auth auth
+  +void Function() onSignOut
+  -void _signOut()
+  +Widget build()
+}
+
+"newbiepets_flutter::home.dart::HomePage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"newbiepets_flutter::home.dart::HomePage" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::home.dart::HomePage"
+
+class "newbiepets_flutter::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::main.dart::MyApp"
+
+class "newbiepets_flutter::models::pet.dart::Pet" {
+  +String did
+  +String nombre
+  +int edad
+  +Timestamp fechaNacimiento
+  +String tipo
+  +Map toMap()
+}
+
+"newbiepets_flutter::models::pet.dart::Pet" o-- "cloud_firestore::cloud_firestore.dart::Timestamp"
+
+class "newbiepets_flutter::models::user.dart::Profile" {
+  +String nombre
+  +String email
+  +String direccion
+  +String telefono
+  +Map toMap()
+}
+
+class "newbiepets_flutter::pages::birds.dart::BirdsPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::birds.dart::BirdsPage"
+
+class "newbiepets_flutter::pages::birds.dart::ListBirds" {
+  +String imageBird
+  +String nameBird
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::birds.dart::ListBirds"
+
+class "newbiepets_flutter::pages::cats.dart::CatsPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::cats.dart::CatsPage"
+
+class "newbiepets_flutter::pages::cats.dart::ListCats" {
+  +String imageCat
+  +String nameCat
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::cats.dart::ListCats"
+
+class "newbiepets_flutter::pages::dogs.dart::DogsPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::dogs.dart::DogsPage"
+
+class "newbiepets_flutter::pages::dogs.dart::ListDogs" {
+  +String imageDog
+  +String nameDog
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::dogs.dart::ListDogs"
+
+class "newbiepets_flutter::pages::forum.dart::ForumPage" {
+  +ForumPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::forum.dart::ForumPage"
+
+class "newbiepets_flutter::pages::forum.dart::ForumPageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::forum.dart::ForumPageState"
+
+class "newbiepets_flutter::pages::login.dart::LoginPage" {
+  +Auth auth
+  +void Function() onSignedIn
+  +LoginPageState createState()
+}
+
+"newbiepets_flutter::pages::login.dart::LoginPage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"newbiepets_flutter::pages::login.dart::LoginPage" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::login.dart::LoginPage"
+
+class "newbiepets_flutter::pages::login.dart::LoginPageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::login.dart::LoginPageState"
+
+class "newbiepets_flutter::pages::maps.dart::MapsPage" {
+  +MapsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::maps.dart::MapsPage"
+
+class "newbiepets_flutter::pages::maps.dart::MapsPageState" {
+  -Completer<GoogleMapController> _controller
+  +double zoomVal
+  +void initState()
+  +Widget build()
+  -Widget _googlemap()
+}
+
+"newbiepets_flutter::pages::maps.dart::MapsPageState" o-- "dart::async::Completer<GoogleMapController>"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::maps.dart::MapsPageState"
+
+class "newbiepets_flutter::pages::mypets.dart::MyPetPage" {
+  +Auth auth
+  +String uid
+  +MyPetPageState createState()
+}
+
+"newbiepets_flutter::pages::mypets.dart::MyPetPage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::mypets.dart::MyPetPage"
+
+class "newbiepets_flutter::pages::mypets.dart::MyPetPageState" {
+  +Widget build()
+  -dynamic _buildContents()
+}
+
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::mypets.dart::MyPetPageState"
+
+class "newbiepets_flutter::pages::mypets_list.dart::MyPetsList" {
+  +Pet pet
+  +void Function() onTap
+  +Widget build()
+}
+
+"newbiepets_flutter::pages::mypets_list.dart::MyPetsList" o-- "newbiepets_flutter::models::pet.dart::Pet"
+"newbiepets_flutter::pages::mypets_list.dart::MyPetsList" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::mypets_list.dart::MyPetsList"
+
+class "newbiepets_flutter::pages::pets.dart::PetsPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::pets.dart::PetsPage"
+
+class "newbiepets_flutter::pages::profile.dart::ProfilePage" {
+  +Auth auth
+  +String uid
+  {static} +Future show()
+  +ProfilePageState createState()
+}
+
+"newbiepets_flutter::pages::profile.dart::ProfilePage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::profile.dart::ProfilePage"
+
+class "newbiepets_flutter::pages::profile.dart::ProfilePageState" {
+  -Profile _profile
+  +void initState()
+  +Widget build()
+  -dynamic _buildList()
+}
+
+"newbiepets_flutter::pages::profile.dart::ProfilePageState" o-- "newbiepets_flutter::models::user.dart::Profile"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::profile.dart::ProfilePageState"
+
+class "newbiepets_flutter::pages::profileList.dart::ProfileList" {
+  +Profile profile
+  +Widget build()
+}
+
+"newbiepets_flutter::pages::profileList.dart::ProfileList" o-- "newbiepets_flutter::models::user.dart::Profile"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "newbiepets_flutter::pages::profileList.dart::ProfileList"
+
+class "newbiepets_flutter::pages::register.dart::RegistroPage" {
+  +Auth auth
+  +void Function() onSignedIn
+  {static} +Future show()
+  +RegistroPageState createState()
+}
+
+"newbiepets_flutter::pages::register.dart::RegistroPage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"newbiepets_flutter::pages::register.dart::RegistroPage" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::register.dart::RegistroPage"
+
+class "newbiepets_flutter::pages::register.dart::RegistroPageState" {
+  +GlobalKey<FormState> formKey
+  -String _email
+  -String _password
+  -String _cpassword
+  -String _nombre
+  -String _telefono
+  -String _direccion
+  -TextEditingController _registerPassController
+  -TextEditingController _registerPassController2
+  +bool validateForm()
+  -void _submit()
+  +Widget build()
+}
+
+"newbiepets_flutter::pages::register.dart::RegistroPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"newbiepets_flutter::pages::register.dart::RegistroPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::register.dart::RegistroPageState"
+
+class "newbiepets_flutter::pages::registerpet.dart::RegistroPetPage" {
+  +Auth auth
+  +Pet pet
+  {static} +Future show()
+  +RegistroPetPageState createState()
+}
+
+"newbiepets_flutter::pages::registerpet.dart::RegistroPetPage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"newbiepets_flutter::pages::registerpet.dart::RegistroPetPage" o-- "newbiepets_flutter::models::pet.dart::Pet"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::registerpet.dart::RegistroPetPage"
+
+class "newbiepets_flutter::pages::registerpet.dart::RegistroPetPageState" {
+  -String _nombre
+  -int _edad
+  -DateTime _fechaNacimiento
+  -String _tipo
+  +TextEditingController dateTXT
+  -GlobalKey<FormState> _formKey
+  -List _mascotas
+  +DateTime selectedDate
+  -List<DropdownMenuItem<String>> _dropDownMenuItems
+  -String _mascotasActual
+  -bool _validateForm()
+  -Future _submit()
+  +void initState()
+  +List getDropDownMenuItems()
+  +Widget build()
+  +void changedDropDownItem()
+  -Future _selectDate()
+}
+
+"newbiepets_flutter::pages::registerpet.dart::RegistroPetPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"newbiepets_flutter::pages::registerpet.dart::RegistroPetPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::registerpet.dart::RegistroPetPageState"
+
+class "newbiepets_flutter::pages::settings.dart::Notifier" {
+  +int index
+  {static} +List<Notifier> values
+  {static} +Notifier Notificacion
+  {static} +Notifier Alarma
+}
+
+"newbiepets_flutter::pages::settings.dart::Notifier" o-- "newbiepets_flutter::pages::settings.dart::Notifier"
+
+class "newbiepets_flutter::pages::settings.dart::SettingsPage" {
+  +_SettingsPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::pages::settings.dart::SettingsPage"
+
+class "newbiepets_flutter::pages::settings.dart::_SettingsPageState" {
+  -Notifier _selectItem
+  +Widget build()
+}
+
+"newbiepets_flutter::pages::settings.dart::_SettingsPageState" o-- "newbiepets_flutter::pages::settings.dart::Notifier"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::pages::settings.dart::_SettingsPageState"
+
+class "newbiepets_flutter::root.dart::AuthStatus" {
+  +int index
+  {static} +List<AuthStatus> values
+  {static} +AuthStatus notSigned
+  {static} +AuthStatus Signed
+}
+
+"newbiepets_flutter::root.dart::AuthStatus" o-- "newbiepets_flutter::root.dart::AuthStatus"
+
+class "newbiepets_flutter::root.dart::RootPage" {
+  +Auth auth
+  +State createState()
+}
+
+"newbiepets_flutter::root.dart::RootPage" o-- "newbiepets_flutter::services::auth.dart::Auth"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "newbiepets_flutter::root.dart::RootPage"
+
+class "newbiepets_flutter::root.dart::_RootPageState" {
+  -AuthStatus _authStatus
+  +void initState()
+  -void _signedIn()
+  -void _signedOut()
+  +Widget build()
+}
+
+"newbiepets_flutter::root.dart::_RootPageState" o-- "newbiepets_flutter::root.dart::AuthStatus"
+"flutter::src::widgets::framework.dart::State<T>" <|-- "newbiepets_flutter::root.dart::_RootPageState"
+
+class "newbiepets_flutter::services::auth.dart::User" {
+  +String uid
+}
+
+abstract class "newbiepets_flutter::services::auth.dart::AuthBase" {
+  +Future currentUser()
+  +Future signInWithGoogle()
+  +Future signInWithEmailAndPassword()
+  +Future createUserWithEmailAndPassword()
+  +Future signOut()
+}
+
+class "newbiepets_flutter::services::auth.dart::Auth" {
+  -FirebaseAuth _firebaseAuth
+  +Future currentUser()
+  +Future signInWithGoogle()
+  +Future signInWithEmailAndPassword()
+  +Future createUserWithEmailAndPassword()
+  +Future signOut()
+}
+
+"newbiepets_flutter::services::auth.dart::Auth" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"newbiepets_flutter::services::auth.dart::AuthBase" <|-- "newbiepets_flutter::services::auth.dart::Auth"
+
+abstract class "newbiepets_flutter::services::petdb.dart::Database" {
+  +Future setPet()
+  +Stream readPets()
+}
+
+class "newbiepets_flutter::services::petdb.dart::FirestoreDatabase" {
+  +String uid
+  +Stream readPets()
+  +Future setPet()
+  -Future _setData()
+  -Stream _collectionsStream()
+}
+
+"newbiepets_flutter::services::petdb.dart::Database" <|-- "newbiepets_flutter::services::petdb.dart::FirestoreDatabase"
+
+class "newbiepets_flutter::services::pet_api_path.dart::APIPath" {
+  {static} +String pet()
+  {static} +String pets()
+}
+
+abstract class "newbiepets_flutter::services::userdb.dart::DatabaseUser" {
+  +Future readUser()
+}
+
+class "newbiepets_flutter::services::userdb.dart::FirestoreUserDatabase" {
+  +String uid
+  +Future readUser()
+}
+
+"newbiepets_flutter::services::userdb.dart::DatabaseUser" <|-- "newbiepets_flutter::services::userdb.dart::FirestoreUserDatabase"
+
+class "newbiepets_flutter::services::user_api_path.dart::APIPathUser" {
+  {static} +String user()
+}
+
+
+@enduml

@@ -31,25 +31,25 @@ class PlatformAlertDialog extends PlatformWidget {
           );
   }
 
-  @override
+  /*@override
   Widget buildCupertinoWidget(BuildContext context) {
     return CupertinoAlertDialog(
       title: Text(title),
       content: Text(content),
       actions: _buildActions(context),
     );
-  }
+  }*/
 
-  @override
+  /*@override
   Widget buildMaterialWidget(BuildContext context) {
     return AlertDialog(
       title: Text(title),
       content: Text(content),
       actions: _buildActions(context),
     );
-  }
+  }*/
 
-  List<Widget> _buildActions(BuildContext context) {
+  /*List<Widget> _buildActions(BuildContext context) {
     final actions = <Widget>[];
     if (cancelActionText != null) {
       actions.add(
@@ -66,10 +66,10 @@ class PlatformAlertDialog extends PlatformWidget {
       ),
     );
     return actions;
-  }
+  }*/
 }
 
-class PlatformAlertDialogAction extends PlatformWidget {
+/*class PlatformAlertDialogAction extends PlatformWidget {
   PlatformAlertDialogAction({this.child, this.onPressed});
   final Widget child;
   final VoidCallback onPressed;
@@ -89,4 +89,4 @@ class PlatformAlertDialogAction extends PlatformWidget {
       onPressed: onPressed,
     );
   }
-}
+}*/
